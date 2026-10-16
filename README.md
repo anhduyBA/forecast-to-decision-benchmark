@@ -1,7 +1,7 @@
-# From Forecasts to Decisions: a forecast-to-decision benchmark for retail replenishment
+# Beyond Forecast Accuracy: a forecast-to-decision benchmark for retail replenishment
 
-Code and result files for the paper *From Forecasts to Decisions: Benchmarking Probabilistic Demand Forecasts for
-Retail Replenishment and Liquidation Across Settings and Periods* (ICIIT 2027, under review).
+Code and result files for the paper *Beyond Forecast Accuracy: Comparing Probabilistic Demand Forecasts by the
+Inventory They Require across Retail Settings and Periods* (ICIIT 2027, under review).
 
 The benchmark evaluates probabilistic demand forecasts by the inventory decisions they produce:
 
