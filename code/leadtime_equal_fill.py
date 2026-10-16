@@ -85,12 +85,14 @@ def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--offsets", default="0")
+    ap.add_argument("--datasets", default="M5,VN1")
+    ap.add_argument("--suffix", default=None)
     a = ap.parse_args()
     offsets = [int(x) for x in a.offsets.split(",")]
-    sfx = "" if offsets == [0] else "_all_windows"
+    sfx = a.suffix if a.suffix is not None else ("" if offsets == [0] else "_all_windows")
     rng = np.random.default_rng(config.SEED)
     rows = []
-    for d in ("M5", "VN1"):
+    for d in a.datasets.split(","):
         for off in offsets:
             for L in LEADS:
                 rows += run(d, L, rng, off)
@@ -121,7 +123,7 @@ def main():
               piv.sort_values("max").to_markdown(), ""]
     with open(os.path.join(config.OUTPUTS, f"leadtime_equal_fill{sfx}.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines))
-    print("written code/outputs/leadtime_equal_fill.md")
+    print(f"written code/outputs/leadtime_equal_fill{sfx}.md")
 
 
 if __name__ == "__main__":
