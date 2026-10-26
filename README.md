@@ -23,7 +23,7 @@ inventory savings measured retrospectively survive a deployment-style (prospecti
   - *prospective:* τ chosen on the previous window, or updated every week from the fill observed so far, reporting
     target fill, achieved fill and inventory together (Table 7 of the paper);
   - *resampling:* series, cluster (M5 items and stores, VN1 warehouses and clients, footwear styles) and
-    week-block bootstraps.
+    week-block bootstraps, and a full-policy cluster bootstrap that recomputes the weekly τ path in every replicate.
 
 Everything runs on a laptop CPU.
 
@@ -35,8 +35,14 @@ Everything runs on a laptop CPU.
 - On VN1, the leading method changes between windows, and demand classes or clusters do not pick it in advance.
 - The pre-specified median of the seven methods needs 7–8% less VN1 inventory than LGB-Q at matched realised fill,
   but the saving does not survive past-only τ calibration, warehouse-level resampling or the independent footwear
-  panel, where LGB-Q again needs the least stock. Retrospective savings are therefore not taken as evidence of a
-  better deployable method.
+  panel, where LGB-Q again needs the least stock. Under the full-policy bootstrap, only 1 of the 13 like-for-like
+  prospective comparisons (achieved fills within 0.5 points) shows a significant saving over LGB-Q; 5 need
+  significantly more stock. Retrospective savings are therefore not taken as evidence of a better deployable method.
+- Pre-test warehouse features rank the TSB-NB/LGB-Q reversal on VN1 weakly (Spearman ρ 0.21–0.27 out of window) but
+  do not yield a reliable selection rule.
+
+A table-by-table map from the paper to scripts and outputs is in [`RESULTS_MANIFEST.md`](RESULTS_MANIFEST.md); the
+comparison with the closest studies is in [`docs/contribution_matrix.md`](docs/contribution_matrix.md).
 
 ## Repository layout
 
@@ -123,7 +129,10 @@ All commands run from the repository root. The test window is selected with `--o
 | Suspected stock-outs (censored demand) | `python code/censoring_check.py`; effect on the rankings: `python code/censoring_rank_check.py` and `python code/censoring_rank_check_e7.py`; detector threshold × imputation grid: `python code/censoring_sensitivity.py` | `censoring/*.md` |
 | τ chosen on the previous window (Section 5.8) | `python code/prospective_tau.py` | `robustness/prospective_tau.md` |
 | Cluster and week-block bootstraps (Section 5.8) | `python code/bootstrap_robust.py` | `robustness/bootstrap_robust.md` |
-| Past-only weekly τ calibration and footwear validation (Table 7) | `python code/rolling_calibration.py` (after `prospective_tau.py` and the footwear forecasts) | `robustness/rolling_calibration.md`, `robustness/vnf_validation.md` |
+| Past-only weekly τ calibration and footwear validation (Table 7 point values) | `python code/rolling_calibration.py` (after `prospective_tau.py` and the footwear forecasts) | `robustness/rolling_calibration.md`, `robustness/vnf_validation.md` |
+| Full-policy cluster bootstrap (Table 7 intervals) | `python code/full_policy_bootstrap.py` | `robustness/full_policy_bootstrap.md` |
+| Inventory–service trade-off by fill-equivalence threshold | `python code/service_tradeoff.py` (after the bootstrap) | `robustness/service_tradeoff.md` |
+| Ranking reversal by warehouse (VN1) | `python code/ranking_reversal.py` | `robustness/ranking_reversal.md` |
 
 The run time depends on the dataset. On an Intel Core i5-12450H with 16 GB RAM, one horizon of LGB-Q takes about 2.5 minutes on VN1 and 21 minutes on M5. `rolling_calibration.py` writes one checkpoint per dataset and transition under `outputs/robustness/rolling_parts/`, so an interrupted run resumes where it stopped.
 

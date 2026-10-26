@@ -39,6 +39,9 @@ data/
 | `prospective_tau.py` | `outputs/robustness/prospective_tau.md` | τ chosen on the previous window to hit a target fill, applied unchanged to the next |
 | `bootstrap_robust.py` | `outputs/robustness/bootstrap_robust.md` | Series, cluster (items, stores, warehouses, clients) and week-block bootstraps of the paper's interval claims |
 | `rolling_calibration.py` | `outputs/robustness/rolling_calibration.md`, `vnf_validation.md` | Weekly past-only τ calibration (target vs achieved fill, inventory, cluster intervals; paper Table 7) and the independent footwear validation |
+| `full_policy_bootstrap.py` | `outputs/robustness/full_policy_bootstrap.md` | Table 7 intervals: clusters resampled, weekly τ path and inventory recomputed in each of 2,000 paired replicates |
+| `service_tradeoff.py` | `outputs/robustness/service_tradeoff.md` | Target attainment, fill comparability at 0.25 / 0.5 / 1.0 points and inventory verdicts |
+| `ranking_reversal.py` | `outputs/robustness/ranking_reversal.md` | TSB-NB vs LGB-Q by VN1 warehouse: pre-test predictors, out-of-window prediction, decision value |
 
 ## Package `f2d/`
 
