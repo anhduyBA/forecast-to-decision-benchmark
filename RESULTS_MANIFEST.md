@@ -1,6 +1,6 @@
 # Results manifest — from each number in the paper to the code and output behind it
 
-Paper version: rev21 (ICIIT 2027 manuscript, 10 pages). All commands run from the repository root with Python 3.12 and
+Paper version: rev22 (ICIIT 2027 manuscript, 10 pages). All commands run from the repository root with Python 3.12 and
 `code/requirements.txt`; random seed 2026 throughout (`code/f2d/config.py`). Data are not redistributed (see
 `README.md`). Forecasts are cached in `data/cache/forecasts/<DATASET>[_wN]/`; the analysis scripts below read that cache,
 so the forecasting runs come first.
